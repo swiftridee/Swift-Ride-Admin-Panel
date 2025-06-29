@@ -36,7 +36,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       {/* Top Navigation */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-[1600px] mx-auto">
-          <div className="flex justify-between items-center h-16 px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20 px-4 sm:px-6 lg:px-8">
             {/* Logo and Mobile Menu Button */}
             <div className="flex items-center gap-4">
               {/* Mobile Menu Button */}
@@ -47,14 +47,14 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                     size="icon"
                     className="lg:hidden relative shrink-0"
                   >
-                    <Menu className="h-5 w-5" />
+                    <Menu className="h-6 w-6" />
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-72 p-0">
                   <div className="flex flex-col py-4">
                     <div className="px-6 py-2 mb-4">
                       <Link to="/admin/dashboard" className="flex items-center">
-                        <span className="text-xl font-normal">
+                        <span className="text-3xl font-bold">
                           <span style={{ color: "rgb(79, 158, 234)" }}>
                             Swift
                           </span>
@@ -84,7 +84,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
               </Sheet>
 
               <Link to="/admin/dashboard" className="flex items-center">
-                <span className="text-xl font-normal">
+                <span className="text-3xl font-bold">
                   <span style={{ color: "rgb(79, 158, 234)" }}>Swift</span>
                   <span style={{ color: "rgb(255, 114, 94)" }}>Ride</span>
                 </span>
@@ -92,12 +92,12 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-1">
+            <nav className="hidden lg:flex items-center space-x-2">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`px-6 py-3 rounded-lg text-lg font-semibold transition-all duration-200 ${
                     isActive(item.href)
                       ? "text-blue-700 bg-blue-50"
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
@@ -113,17 +113,17 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="flex items-center gap-2 h-9 px-2 hover:bg-gray-100"
+                  className="flex items-center gap-3 h-12 px-4 hover:bg-gray-100"
                 >
-                  <Avatar className="h-7 w-7">
+                  <Avatar className="h-10 w-10">
                     <AvatarFallback
                       style={{ backgroundColor: "rgb(79, 158, 234)" }}
-                      className="text-white text-sm"
+                      className="text-white text-lg"
                     >
                       A
                     </AvatarFallback>
                   </Avatar>
-                  <ChevronDown className="h-4 w-4 text-gray-500" />
+                  <ChevronDown className="h-5 w-5 text-gray-500" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent

@@ -350,9 +350,9 @@ const VehiclesPage = () => {
   if (loading) {
     return (
       <AdminLayout>
-        <div className="flex justify-center items-center h-screen">
-          Loading vehicles...
-        </div>
+        <div className="flex flex-col justify-center items-center h-screen">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary mb-4"></div>
+            </div>
       </AdminLayout>
     );
   }
@@ -386,13 +386,13 @@ const VehiclesPage = () => {
                 Add Vehicle
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[800px]">
+            <DialogContent className="sm:max-w-[800px] max-h-[80vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>
                   {watch("_id", "") ? "Edit Vehicle" : "Add New Vehicle"}
                 </DialogTitle>
               </DialogHeader>
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col min-w-0 space-y-6">
                 <div className="grid grid-cols-3 gap-4">
                   <div className="space-y-2">
                     <label>Name</label>

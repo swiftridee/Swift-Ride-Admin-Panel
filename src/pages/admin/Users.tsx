@@ -88,9 +88,9 @@ const UsersPage = () => {
   if (loading) {
     return (
       <AdminLayout>
-        <div className="flex justify-center items-center h-screen">
-          Loading users...
-        </div>
+        <div className="flex flex-col justify-center items-center h-screen">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary mb-4"></div>
+           </div>
       </AdminLayout>
     );
   }

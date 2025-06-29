@@ -1,7 +1,7 @@
 import axios from "axios";
 import { AuthResponse } from "@/types";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "https://swift-ride-server.vercel.app/";
 
 // Create axios instance
 const axiosInstance = axios.create({

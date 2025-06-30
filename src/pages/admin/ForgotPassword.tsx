@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -47,13 +46,17 @@ const AdminForgotPassword = () => {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex items-center justify-center mb-4">
-            <span className="text-2xl font-normal" style={{ fontSize: '24px', lineHeight: '32px' }}>
+            <span className="text-3xl font-bold" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700 }}>
               <span style={{ color: 'rgb(79, 158, 234)' }}>Swift</span>
               <span style={{ color: 'rgb(255, 114, 94)' }}>Ride</span>
             </span>
           </div>
-          <CardTitle className="text-2xl font-bold text-gray-900">Forgot Password</CardTitle>
-          <p className="text-gray-600">Enter your email to receive a reset link</p>
+          <CardTitle className="text-2xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            Forgot Password
+          </CardTitle>
+          <p className="text-md text-gray-700 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            Enter your <span className="text-blue-500 font-semibold">admin</span> email to receive a reset link
+          </p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">

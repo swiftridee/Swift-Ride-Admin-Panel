@@ -23,7 +23,6 @@ import Users from "./pages/admin/Users";
 import Vehicles from "./pages/admin/Vehicles";
 // import Analytics from "./pages/admin/Analytics";
 import NotFound from "./pages/NotFound";
-import Index from "./pages/Index";
 
 const queryClient = new QueryClient();
 
@@ -44,7 +43,7 @@ const App: React.FC = () => {
           <Router>
             <Routes>
               {/* Landing Page */}
-              <Route path="/" element={<Index />} />
+              <Route path="/" element={<Navigate to="/admin/login" replace />} />
 
               {/* Public Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />

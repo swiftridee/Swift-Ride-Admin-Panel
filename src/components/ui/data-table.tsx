@@ -107,25 +107,27 @@ export function DataTable({
                       </TableCell>
                     ))}
                     {(onEdit || onDelete) && (
-                      <TableCell className="text-right space-x-2 sticky right-0 bg-white">
-                        {onEdit && (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => onEdit(row)}
-                          >
-                            Edit
-                          </Button>
-                        )}
-                        {onDelete && (
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => onDelete(row)}
-                          >
-                            Delete
-                          </Button>
-                        )}
+                      <TableCell className="text-right sticky right-0 bg-white">
+                        <div className="flex justify-end gap-2">
+                          {onEdit && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => onEdit(row)}
+                            >
+                              Edit
+                            </Button>
+                          )}
+                          {onDelete && (
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => onDelete(row)}
+                            >
+                              Delete
+                            </Button>
+                          )}
+                        </div>
                       </TableCell>
                     )}
                   </TableRow>

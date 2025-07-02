@@ -21,7 +21,7 @@ import Dashboard from "./pages/admin/Dashboard";
 import Bookings from "./pages/admin/Bookings";
 import Users from "./pages/admin/Users";
 import Vehicles from "./pages/admin/Vehicles";
-// import Analytics from "./pages/admin/Analytics";
+import Analytics from "./pages/admin/Analytics";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -86,14 +86,14 @@ const App: React.FC = () => {
                   </PrivateRoute>
                 }
               />
-              {/* <Route
+              <Route
                 path="/admin/analytics"
                 element={
                   <PrivateRoute>
                     <Analytics />
                   </PrivateRoute>
                 }
-              /> */}
+              />
 
               {/* 404 Route */}
               <Route path="*" element={<NotFound />} />

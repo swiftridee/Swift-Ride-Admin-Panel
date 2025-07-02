@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../utils/axios";
-import { AnalyticsState } from "../../types";
+import { AnalyticsState, Analytics } from "../../types";
 
 const initialState: AnalyticsState = {
   data: null,
@@ -12,7 +12,7 @@ export const fetchAnalytics = createAsyncThunk(
   "analytics/fetchData",
   async () => {
     const response = await axiosInstance.get("/api/admin/analytics");
-    return response.data;
+    return response.data.data || response.data; // Handle both response formats
   }
 );
 
@@ -20,7 +20,7 @@ const analyticsSlice = createSlice({
   name: "analytics",
   initialState,
   reducers: {
-    setAnalytics: (state, action: PayloadAction<any>) => {
+    setAnalytics: (state, action: PayloadAction<Analytics>) => {
       state.data = action.payload;
       state.loading = false;
       state.error = null;

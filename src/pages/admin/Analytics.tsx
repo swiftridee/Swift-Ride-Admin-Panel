@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -17,11 +17,16 @@ import {
   LineChart,
   Line,
 } from "recharts";
+import { useAnalytics } from "@/hooks/useAnalytics";
+import { Button } from "@/components/ui/button";
+import { RefreshCw, AlertCircle } from "lucide-react";
 
 const Analytics = () => {
   const [selectedPeriod, setSelectedPeriod] = useState("today");
+  const { data, loading, error, handleClearError } = useAnalytics();
 
-  const bookingTrendsData = [
+  // Default static data as fallback
+  const defaultBookingTrendsData = [
     { day: "Mon", bookings: 245 },
     { day: "Tue", bookings: 312 },
     { day: "Wed", bookings: 389 },
@@ -31,7 +36,7 @@ const Analytics = () => {
     { day: "Sun", bookings: 578 },
   ];
 
-  const popularVehiclesData = [
+  const defaultPopularVehiclesData = [
     { vehicle: "Toyota", count: 89 },
     { vehicle: "Honda", count: 76 },
     { vehicle: "Yutong", count: 45 },
@@ -39,7 +44,7 @@ const Analytics = () => {
     { vehicle: "Toyota Coaster", count: 23 },
   ];
 
-  const revenueData = [
+  const defaultRevenueData = [
     { month: "Jan", revenue: 15000 },
     { month: "Feb", revenue: 18200 },
     { month: "Mar", revenue: 16800 },
@@ -54,7 +59,12 @@ const Analytics = () => {
     { month: "Dec", revenue: 34000 },
   ];
 
-  // Update data based on selected period
+  // Use API data or fallback to static data
+  const bookingTrendsData = data?.bookingTrends || defaultBookingTrendsData;
+  const popularVehiclesData = data?.popularVehicles || defaultPopularVehiclesData;
+  const revenueData = data?.revenueGrowth || defaultRevenueData;
+
+  // Calculate stats based on selected period and available data
   const getUpdatedStats = () => {
     const multipliers = {
       today: 1,
@@ -65,23 +75,100 @@ const Analytics = () => {
     const multiplier =
       multipliers[selectedPeriod as keyof typeof multipliers] || 1;
 
+    // Use real data if available, otherwise use calculated values
+    const totalBookings = data?.totalBookings || Math.round(1200 * multiplier);
+    const totalVehicles = data?.totalVehicles || Math.round(150 * (multiplier * 0.1 + 0.9));
+    const totalRevenue = data?.totalRevenue || Math.round(25000 * multiplier);
+
     return {
-      bookings: Math.round(1200 * multiplier),
-      vehicles: Math.round(150 * (multiplier * 0.1 + 0.9)),
-      revenue: Math.round(25000 * multiplier),
+      bookings: totalBookings,
+      vehicles: totalVehicles,
+      revenue: totalRevenue,
     };
   };
 
   const stats = getUpdatedStats();
 
+  // Loading state
+  if (loading) {
+    return (
+      <AdminLayout>
+        <div className="p-6">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">Analytics</h1>
+            <p className="text-gray-600 mt-2">
+              Track key performance indicators and trends for Swift Ride.
+            </p>
+          </div>
+          <div className="flex justify-center items-center h-64">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <p className="text-gray-600">Loading analytics data...</p>
+            </div>
+          </div>
+        </div>
+      </AdminLayout>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <AdminLayout>
+        <div className="p-6">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">Analytics</h1>
+            <p className="text-gray-600 mt-2">
+              Track key performance indicators and trends for Swift Ride.
+            </p>
+          </div>
+          <div className="flex justify-center items-center h-64">
+            <div className="flex flex-col items-center space-y-4 text-center">
+              <AlertCircle className="h-12 w-12 text-red-500" />
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  Failed to load analytics data
+                </h3>
+                <p className="text-gray-600 mb-4">{error}</p>
+                <Button onClick={handleClearError} variant="outline">
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Try Again
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </AdminLayout>
+    );
+  }
+
   return (
     <AdminLayout>
       <div className="p-6">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Analytics</h1>
-          <p className="text-gray-600 mt-2">
-            Track key performance indicators and trends for Swift Ride.
-          </p>
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Analytics</h1>
+              <p className="text-gray-600 mt-2">
+                Track key performance indicators and trends for Swift Ride.
+              </p>
+            </div>
+            <div className="flex items-center space-x-2">
+              {data && (
+                <span className="text-sm text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                  Live Data
+                </span>
+              )}
+              <Button
+                onClick={() => window.location.reload()}
+                variant="outline"
+                size="sm"
+              >
+                <RefreshCw className="h-4 w-4 mr-2" />
+                Refresh
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* Filter by Period */}
@@ -106,10 +193,10 @@ const Analytics = () => {
             <CardHeader>
               <CardTitle>Booking Trends</CardTitle>
               <div className="space-y-2">
-                <div className="text-2xl font-bold">{stats.bookings}</div>
-                {/* <p className="text-sm text-gray-600">
-                  Selected Period <span className="text-green-600">+15%</span>
-                </p> */}
+                <div className="text-2xl font-bold">{stats.bookings.toLocaleString()}</div>
+                <p className="text-sm text-gray-600">
+                  {data ? "Real-time data" : "Sample data"} • {selectedPeriod}
+                </p>
               </div>
             </CardHeader>
             <CardContent>
@@ -139,10 +226,10 @@ const Analytics = () => {
             <CardHeader>
               <CardTitle>Popular Vehicles</CardTitle>
               <div className="space-y-2">
-                <div className="text-2xl font-bold">{stats.vehicles}</div>
-                {/* <p className="text-sm text-gray-600">
-                  Selected Period <span className="text-green-600">+10%</span>
-                </p> */}
+                <div className="text-2xl font-bold">{stats.vehicles.toLocaleString()}</div>
+                <p className="text-sm text-gray-600">
+                  {data ? "Real-time data" : "Sample data"} • {selectedPeriod}
+                </p>
               </div>
             </CardHeader>
             <CardContent>
@@ -183,9 +270,9 @@ const Analytics = () => {
                 <div className="text-2xl font-bold">
                   PKR {stats.revenue.toLocaleString()}
                 </div>
-                {/* <p className="text-sm text-gray-600">
-                  Selected Period <span className="text-green-600">+20%</span>
-                </p> */}
+                <p className="text-sm text-gray-600">
+                  {data ? "Real-time data" : "Sample data"} • {selectedPeriod}
+                </p>
               </div>
             </CardHeader>
             <CardContent>
@@ -212,6 +299,18 @@ const Analytics = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Data Source Info */}
+        {!data && (
+          <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <div className="flex items-center space-x-2">
+              <AlertCircle className="h-5 w-5 text-yellow-600" />
+              <p className="text-yellow-800 text-sm">
+                <strong>Note:</strong> Currently showing sample data. Connect to backend API to see real-time analytics.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </AdminLayout>
   );

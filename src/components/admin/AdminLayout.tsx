@@ -26,7 +26,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     { name: "Bookings", href: "/admin/bookings" },
     { name: "Vehicles", href: "/admin/vehicles" },
     { name: "Users", href: "/admin/users" },
-    // { name: "Analytics", href: "/admin/analytics" },
+    { name: "Analytics", href: "/admin/analytics" },
   ];
 
   const isActive = (href: string) => location.pathname === href;

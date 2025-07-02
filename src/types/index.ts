@@ -42,13 +42,15 @@ export interface DashboardStats {
 }
 
 export interface Analytics {
+  totalBookings: number;
+  totalVehicles: number;
+  totalRevenue: number;
   bookingTrends: {
-    date: string;
-    count: number;
+    day: string;
+    bookings: number;
   }[];
   popularVehicles: {
-    vehicleId: string;
-    name: string;
+    vehicle: string;
     count: number;
   }[];
   revenueGrowth: {
@@ -89,7 +91,7 @@ export interface UserState {
 }
 
 export interface AnalyticsState {
-  data: any;
+  data: Analytics | null;
   loading: boolean;
   error: string | null;
 }

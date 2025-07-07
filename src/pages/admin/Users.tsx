@@ -33,6 +33,19 @@ const UsersPage = () => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
+  const formatCNIC = (cnic: string | null): string => {
+    if (!cnic) return "N/A";
+    
+    // Remove any non-digit characters
+    const cleanCNIC = cnic.replace(/\D/g, "");
+    
+    // Check if it's exactly 13 digits
+    if (cleanCNIC.length !== 13) return cnic;
+    
+    // Format as 33401-0344023-3
+    return `${cleanCNIC.slice(0, 5)}-${cleanCNIC.slice(5, 12)}-${cleanCNIC.slice(12)}`;
+  };
+
   const handleDelete = async (row: any) => {
     const id = row._id;
     if (window.confirm("Are you sure you want to delete this user?")) {
@@ -101,7 +114,7 @@ const UsersPage = () => {
       accessorKey: "cnic",
       cell: ({ getValue }) => {
         const value = getValue() as string | null;
-        return value || "N/A";
+        return <span className="whitespace-nowrap">{formatCNIC(value)}</span>;
       },
     },
     {

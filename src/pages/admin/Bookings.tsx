@@ -48,13 +48,6 @@ const BookingsPage = () => {
       accessorKey: "vehicle",
     },
     {
-      header: "Rental Plan",
-      accessorKey: "rentalPlan",
-      cell: ({ getValue }: { getValue: () => string }) => (
-        <span className="capitalize">{getValue()}</span>
-      ),
-    },
-    {
       header: "Pickup Date",
       accessorKey: "startDate",
     },

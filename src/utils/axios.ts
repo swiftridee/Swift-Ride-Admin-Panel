@@ -1,7 +1,8 @@
 import axios from "axios";
 import { AuthResponse } from "@/types";
 
-const API_URL = import.meta.env.VITE_API_URL || "https://swift-ride-server.vercel.app/";
+const API_URL =
+  import.meta.env.VITE_API_URL || "https://swift-ride-server.vercel.app/";
 
 // Create axios instance
 const axiosInstance = axios.create({
@@ -32,7 +33,7 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      window.location.href = "/login";
+      window.location.href = "/admin/login";
     }
     return Promise.reject(error);
   }

@@ -1,10 +1,9 @@
-import React, { useState, FormEvent } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const AdminLogin = () => {
   const { login, loading, error, handleClearError } = useAuth();
@@ -28,17 +27,25 @@ const AdminLogin = () => {
           <div className="flex items-center justify-center mb-4">
             <span
               className="text-3xl font-bold"
-              style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700 }}
+              style={{ fontFamily: "Poppins, sans-serif", fontWeight: 700 }}
             >
-              <span style={{ color: 'rgb(79, 158, 234)' }}>Swift</span>
-              <span style={{ color: 'rgb(255, 114, 94)' }}>Ride</span>
+              <span style={{ color: "rgb(79, 158, 234)" }}>Swift</span>
+              <span style={{ color: "rgb(255, 114, 94)" }}>Ride</span>
             </span>
           </div>
-          <CardTitle className="text-2xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
+          <CardTitle
+            className="text-2xl font-bold text-gray-900 mb-2"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
             Welcome Back
           </CardTitle>
-          <p className="text-md text-gray-700 mb-2" style={{ fontFamily: 'Poppins, sans-serif' }}>
-            Login to your <span className="text-blue-500 font-semibold">admin</span> account to continue
+          <p
+            className="text-md text-gray-700 mb-2"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
+            Login to your{" "}
+            <span className="text-blue-500 font-semibold">admin</span> account
+            to continue
           </p>
         </CardHeader>
         <CardContent>
@@ -112,39 +119,18 @@ const AdminLogin = () => {
                 )}
               </button>
             </div>
-            <div className="text-right">
-              <Link
-                to="/admin/forgot-password"
-                className="text-sm hover:underline"
-                style={{ color: "rgb(79, 158, 234)" }}
-              >
-                Forgot password?
-              </Link>
-            </div>
             <Button
               type="button"
               className="w-full text-white text-lg font-semibold hover:opacity-90 mt-2"
-              style={{ backgroundColor: "rgb(79, 158, 234)", fontFamily: 'Poppins, sans-serif' }}
+              style={{
+                backgroundColor: "rgb(79, 158, 234)",
+                fontFamily: "Poppins, sans-serif",
+              }}
               disabled={loading}
               onClick={handleLogin}
             >
               {loading ? "Logging in..." : "Login"}
             </Button>
-          </div>
-          <div className="mt-6 text-center">
-            <p
-              className="text-md text-gray-700"
-              style={{ fontFamily: "Poppins, sans-serif" }}
-            >
-              Don't have an account?{' '}
-              <Link
-                to="/admin/signup"
-                className="hover:underline font-semibold"
-                style={{ color: "rgb(79, 158, 234)" }}
-              >
-                Create an Account
-              </Link>
-            </p>
           </div>
         </CardContent>
       </Card>

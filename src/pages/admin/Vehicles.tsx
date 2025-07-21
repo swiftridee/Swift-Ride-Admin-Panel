@@ -291,7 +291,6 @@ const VehiclesPage = () => {
 
   const onSubmit = async (data: VehicleFormData) => {
     try {
-      console.log("Form data:", data);
       const vehicleData = {
         name: data.name,
         brand: data.brand,
@@ -352,7 +351,7 @@ const VehiclesPage = () => {
       <AdminLayout>
         <div className="flex flex-col justify-center items-center h-screen">
           <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary mb-4"></div>
-            </div>
+        </div>
       </AdminLayout>
     );
   }
@@ -392,7 +391,10 @@ const VehiclesPage = () => {
                   {watch("_id", "") ? "Edit Vehicle" : "Add New Vehicle"}
                 </DialogTitle>
               </DialogHeader>
-              <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col min-w-0 space-y-6">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col min-w-0 space-y-6"
+              >
                 <div className="grid grid-cols-3 gap-4">
                   <div className="space-y-2">
                     <label>Name</label>

@@ -15,8 +15,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Pages
 import AdminLogin from "./pages/admin/Login";
-import AdminSignup from "./pages/admin/Signup";
-import AdminForgotPassword from "./pages/admin/ForgotPassword";
 import Dashboard from "./pages/admin/Dashboard";
 import Bookings from "./pages/admin/Bookings";
 import Users from "./pages/admin/Users";
@@ -43,15 +41,13 @@ const App: React.FC = () => {
           <Router>
             <Routes>
               {/* Landing Page */}
-              <Route path="/" element={<Navigate to="/admin/login" replace />} />
+              <Route
+                path="/"
+                element={<Navigate to="/admin/login" replace />}
+              />
 
               {/* Public Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin/signup" element={<AdminSignup />} />
-              <Route
-                path="/admin/forgot-password"
-                element={<AdminForgotPassword />}
-              />
 
               {/* Protected Routes */}
               <Route

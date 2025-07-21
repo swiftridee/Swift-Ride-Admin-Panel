@@ -22,7 +22,7 @@ const Dashboard = () => {
       <AdminLayout>
         <div className="flex flex-col justify-center items-center h-screen">
           <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary mb-4"></div>
-         </div>
+        </div>
       </AdminLayout>
     );
   }
@@ -51,7 +51,7 @@ const Dashboard = () => {
     },
     {
       title: "Total Revenue",
-      value: `$${(stats?.revenue?.total || 0).toLocaleString()}`,
+      value: `RS: ${(stats?.revenue?.total || 0).toLocaleString()}`,
     },
   ];
 

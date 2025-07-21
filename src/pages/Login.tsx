@@ -1,19 +1,17 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
-const Login: React.FC = () => {
+const AdminLogin = () => {
   const { login, loading, error, handleClearError } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent form submission
+  const handleLogin = async () => {
     if (!loading) {
       await login({ email, password });
     }
@@ -28,20 +26,30 @@ const Login: React.FC = () => {
         <CardHeader className="text-center">
           <div className="flex items-center justify-center mb-4">
             <span
-              className="text-2xl font-normal"
-              style={{ fontSize: "24px", lineHeight: "32px" }}
+              className="text-3xl font-bold"
+              style={{ fontFamily: "Poppins, sans-serif", fontWeight: 700 }}
             >
               <span style={{ color: "rgb(79, 158, 234)" }}>Swift</span>
               <span style={{ color: "rgb(255, 114, 94)" }}>Ride</span>
             </span>
           </div>
-          <CardTitle className="text-2xl font-bold text-gray-900">
-            Admin Login
+          <CardTitle
+            className="text-2xl font-bold text-gray-900 mb-2"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
+            Welcome Back
           </CardTitle>
-          <p className="text-gray-600">Sign in to your admin account</p>
+          <p
+            className="text-md text-gray-700 mb-2"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
+            Login to your{" "}
+            <span className="text-blue-500 font-semibold">admin</span> account
+            to continue
+          </p>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-4">
             {error && (
               <div
                 className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative flex items-center"
@@ -72,7 +80,7 @@ const Login: React.FC = () => {
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
                 type="email"
-                placeholder="Email address"
+                placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -88,7 +96,7 @@ const Login: React.FC = () => {
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
                 type={showPassword ? "text" : "password"}
-                placeholder="Password"
+                placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -111,38 +119,18 @@ const Login: React.FC = () => {
                 )}
               </button>
             </div>
-            <div className="text-right">
-              <Link
-                to="/admin/forgot-password"
-                className="text-sm hover:underline"
-                style={{ color: "rgb(79, 158, 234)" }}
-              >
-                Forgot password?
-              </Link>
-            </div>
             <Button
-              type="submit"
-              className="w-full text-white hover:opacity-90"
-              style={{ backgroundColor: "rgb(79, 158, 234)" }}
+              type="button"
+              className="w-full text-white text-lg font-semibold hover:opacity-90 mt-2"
+              style={{
+                backgroundColor: "rgb(79, 158, 234)",
+                fontFamily: "Poppins, sans-serif",
+              }}
               disabled={loading}
+              onClick={handleLogin}
             >
               {loading ? "Logging in..." : "Login"}
             </Button>
-          </form>
-          <div className="mt-6 text-center">
-            <p
-              className="text-sm text-gray-600"
-              style={{ fontFamily: "Poppins, sans-serif" }}
-            >
-              Don't have an account?{" "}
-              <Link
-                to="/admin/signup"
-                className="hover:underline"
-                style={{ color: "rgb(79, 158, 234)" }}
-              >
-                Sign up here
-              </Link>
-            </p>
           </div>
         </CardContent>
       </Card>
@@ -150,4 +138,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;
